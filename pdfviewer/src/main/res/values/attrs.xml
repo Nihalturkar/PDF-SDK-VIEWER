@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom XML attributes for PDFView (extensible for future use) -->
+    <declare-styleable name="PDFView">
+        <attr name="pdfPageSpacing" format="dimension" />
+        <attr name="pdfMaxZoom" format="float" />
+        <attr name="pdfMinZoom" format="float" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,169 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 6 0 R 9 0 R 12 0 R 15 0 R] /Count 5 >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 469 >>
+stream
+BT
+/F1 12 Tf
+50 740 Td
+14 TL
+(Introduction to PDF Viewer SDK) Tj T*
+() Tj T*
+(This is a sample PDF document created to demonstrate the PDF Viewer SDK.) Tj T*
+() Tj T*
+(Lorem ipsum dolor sit amet, consectetur adipiscing elit.) Tj T*
+(Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.) Tj T*
+(Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.) Tj T*
+() Tj T*
+(Features: pinch-to-zoom, double-tap zoom, text search, text copy.) Tj T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+8 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+7 0 obj
+<< /Length 472 >>
+stream
+BT
+/F1 12 Tf
+50 740 Td
+14 TL
+(Chapter 1: Getting Started) Tj T*
+() Tj T*
+(The PDF Viewer SDK is built with Kotlin.) Tj T*
+(It uses PdfiumAndroid for native rendering.) Tj T*
+() Tj T*
+(Key Features:) Tj T*
+(- Open PDF from file or byte array) Tj T*
+(- Smooth vertical scrolling between pages) Tj T*
+(- Pinch to zoom with quality re-rendering) Tj T*
+(- Double tap to zoom in and out) Tj T*
+(- Text search across all pages) Tj T*
+(- Text selection and copy support) Tj T*
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 8 0 R >> >> >>
+endobj
+11 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+10 0 obj
+<< /Length 499 >>
+stream
+BT
+/F1 12 Tf
+50 740 Td
+14 TL
+(Chapter 2: Architecture) Tj T*
+() Tj T*
+(The SDK has these components:) Tj T*
+() Tj T*
+(1. PdfDocument - Native PDF document wrapper) Tj T*
+(2. PdfRenderer - Rendering coordinator with cache) Tj T*
+(3. BitmapCache - LRU cache for page bitmaps) Tj T*
+(4. ZoomableLayout - Pinch zoom and pan gestures) Tj T*
+(5. PdfPageAdapter - RecyclerView adapter) Tj T*
+(6. PDFView - Public API component) Tj T*
+() Tj T*
+(All rendering uses Kotlin Coroutines on IO threads.) Tj T*
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 11 0 R >> >> >>
+endobj
+14 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+13 0 obj
+<< /Length 468 >>
+stream
+BT
+/F1 12 Tf
+50 740 Td
+14 TL
+(Chapter 3: Text Features) Tj T*
+() Tj T*
+(Search: Type any word in the search bar.) Tj T*
+(The SDK finds all occurrences across every page.) Tj T*
+(Total match count is displayed instantly.) Tj T*
+() Tj T*
+(Copy: Tap the Aa button to show text overlay.) Tj T*
+(Long press to select text with native handles.) Tj T*
+(Selected text can be copied to clipboard.) Tj T*
+() Tj T*
+(The text extraction runs in background using PdfBox.) Tj T*
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 13 0 R /Resources << /Font << /F1 14 0 R >> >> >>
+endobj
+17 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+16 0 obj
+<< /Length 506 >>
+stream
+BT
+/F1 12 Tf
+50 740 Td
+14 TL
+(Chapter 4: Performance) Tj T*
+() Tj T*
+(For best performance:) Tj T*
+() Tj T*
+(1. Use file paths instead of InputStreams) Tj T*
+(2. Cache size adapts to device RAM automatically) Tj T*
+(3. Only visible pages are rendered at full resolution) Tj T*
+(4. Nearby pages are prefetched for smooth scrolling) Tj T*
+(5. Zoom quality is enhanced by re-rendering) Tj T*
+() Tj T*
+(The SDK supports Android 8.0 and above.) Tj T*
+() Tj T*
+(Thank you for using the PDF Viewer SDK.) Tj T*
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 16 0 R /Resources << /Font << /F1 17 0 R >> >> >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000141 00000 n 
+0000000211 00000 n 
+0000000730 00000 n 
+0000000856 00000 n 
+0000000926 00000 n 
+0000001448 00000 n 
+0000001574 00000 n 
+0000001645 00000 n 
+0000002195 00000 n 
+0000002323 00000 n 
+0000002394 00000 n 
+0000002913 00000 n 
+0000003042 00000 n 
+0000003113 00000 n 
+0000003670 00000 n 
+trailer
+<< /Size 18 /Root 1 0 R >>
+startxref
+3799
+%%EOF
