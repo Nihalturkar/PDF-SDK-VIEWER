@@ -64,6 +64,7 @@ class PDFView @JvmOverloads constructor(
     private var isDocumentOpen = false
     private var searchJob: Job? = null
     private var lastSearchResults: Map<Int, Int> = emptyMap()
+    private var suppressNavigate = false  // When true, search will NOT jump to first match
 
     // Flat list of all matches: each entry is (pageIndex, matchIndexOnPage)
     private var allMatches: List<Pair<Int, Int>> = emptyList()
@@ -225,15 +226,28 @@ class PDFView @JvmOverloads constructor(
                 }
             }
             allMatches = matches
-            currentMatchIndex = if (matches.isNotEmpty()) 0 else -1
+
+            val shouldNavigate = !suppressNavigate
+            suppressNavigate = false
 
             if (matches.isNotEmpty()) {
-                val (page, matchOnPage) = matches[0]
+                // Pick closest match to current page (not always first)
+                val startIdx = if (!shouldNavigate && currentPage >= 0) {
+                    // Find first match on or after current page
+                    val idx = matches.indexOfFirst { it.first >= currentPage }
+                    if (idx >= 0) idx else 0
+                } else {
+                    0
+                }
+                currentMatchIndex = startIdx
+
+                val (page, matchOnPage) = matches[startIdx]
                 adapter.currentMatchPage = page
                 adapter.currentMatchOnPage = matchOnPage
-                searchCount.text = "1/$total"
+                searchCount.text = "${startIdx + 1}/$total"
                 updateNavVisibility(true)
             } else {
+                currentMatchIndex = -1
                 adapter.currentMatchPage = -1
                 adapter.currentMatchOnPage = -1
                 searchCount.text = if (total > 0) "$total found" else "Not found"
@@ -243,8 +257,8 @@ class PDFView @JvmOverloads constructor(
             adapter.refreshHighlights(recyclerView)
             listener?.onSearchResults(total)
 
-            if (matches.isNotEmpty()) {
-                goToPage(matches[0].first)
+            if (matches.isNotEmpty() && shouldNavigate) {
+                goToPage(matches[currentMatchIndex].first)
             }
         }
     }
@@ -282,30 +296,68 @@ class PDFView @JvmOverloads constructor(
         searchCount.text = "${currentMatchIndex + 1}/${allMatches.size}"
 
         navJob?.cancel()
-        navJob = scope.launch {
+        navJob = fallbackScope.launch {
             val lm = recyclerView.layoutManager as? LinearLayoutManager ?: return@launch
-            val rvHeight = recyclerView.height
-            val viewWidth = recyclerView.width.takeIf { it > 0 }
-                ?: resources.displayMetrics.widthPixels
-            val aspectRatio = renderer.getPageAspectRatio(page)
-            val pageDisplayHeight = (viewWidth / aspectRatio).toInt()
 
-            val matchYNorm = renderer.getMatchNormalizedY(page, adapter.searchQuery, matchOnPage)
-            val matchYOnPage = (matchYNorm * pageDisplayHeight).toInt()
+            // Step 0: Reset zoom to 100% so user can clearly see the match
+            if (zoomableLayout.currentScale < 0.95f || zoomableLayout.currentScale > 1.05f) {
+                zoomableLayout.resetZoomInstant()
+                adapter.scaleFactor = 1f
+                delay(50)
+            }
 
-            // Account for zoom: RecyclerView is scaled, so visible area is rvHeight/scale
-            val scale = adapter.scaleFactor.coerceAtLeast(1f)
-            val visibleHeight = (rvHeight / scale).toInt()
-            val offset = visibleHeight / 2 - matchYOnPage
-
-            lm.scrollToPositionWithOffset(page, offset)
-
+            // Step 1: Scroll the target page to top of RecyclerView
+            lm.scrollToPositionWithOffset(page, 0)
             currentPage = page
             listener?.onPageChanged(currentPage)
 
-            delay(200)
+            // Step 2: Wait for layout to complete
+            delay(150)
+
+            // Step 3: Refresh highlights so currentMatchHighlights gets populated
             adapter.refreshHighlights(recyclerView)
+
+            // Step 4: Wait for highlight coroutine to finish
+            delay(150)
+
+            // Step 5: Find the page's view in RecyclerView and read HighlightView position
+            val pageView = findPageView(page)
+            if (pageView != null) {
+                val highlightView = pageView.findViewById<HighlightView>(R.id.highlightView)
+                val matchRects = highlightView?.currentMatchHighlights
+                if (!matchRects.isNullOrEmpty()) {
+                    // Get center Y of the match in pixels relative to the page view
+                    val firstRect = matchRects[0]
+                    val matchCenterY = ((firstRect.top + firstRect.bottom) / 2f) * highlightView.height
+
+                    // Page view's top position relative to RecyclerView
+                    val pageTopInRv = pageView.top
+
+                    // Absolute Y of the match inside the RecyclerView's coordinate space
+                    val matchAbsY = pageTopInRv + matchCenterY
+
+                    // Screen center of RecyclerView (zoom is always 1x here)
+                    val screenCenter = recyclerView.height / 2f
+
+                    // Delta to scroll so match lands at center
+                    val delta = (matchAbsY - screenCenter).toInt()
+
+                    recyclerView.scrollBy(0, delta)
+                }
+            }
         }
+    }
+
+    /**
+     * Find the child view for a specific page index in the RecyclerView.
+     */
+    private fun findPageView(pageIndex: Int): View? {
+        for (i in 0 until recyclerView.childCount) {
+            val child = recyclerView.getChildAt(i) ?: continue
+            val holder = recyclerView.getChildViewHolder(child)
+            if (holder.bindingAdapterPosition == pageIndex) return child
+        }
+        return null
     }
 
     private fun copySelectedText(pageIndex: Int, startChar: Int, endChar: Int) {
@@ -321,6 +373,8 @@ class PDFView @JvmOverloads constructor(
                 clipboard.setPrimaryClip(ClipData.newPlainText("PDF Text", text))
                 Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
 
+                // Fill search input but DON'T navigate away from current page
+                suppressNavigate = true
                 searchInput.setText(text)
                 searchInput.setSelection(text.length)
             }

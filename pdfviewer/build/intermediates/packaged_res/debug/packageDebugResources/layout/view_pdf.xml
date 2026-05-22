@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Search bar — always visible at top -->
+    <LinearLayout
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:paddingHorizontal="8dp">
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:hint="Search in PDF..."
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:textColorHint="#B0FFFFFF"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:background="@android:color/transparent"
+            android:paddingHorizontal="8dp"
+            android:singleLine="true" />
+
+        <!-- Match count (e.g. 1/5) -->
+        <TextView
+            android:id="@+id/searchCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#E0FFFFFF"
+            android:paddingHorizontal="4dp" />
+
+        <!-- Exact/Similar search toggle -->
+        <TextView
+            android:id="@+id/btnSearchMode"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="Aa"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#B0FFFFFF"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:visibility="gone"
+            android:layout_marginStart="2dp" />
+
+        <!-- Previous match -->
+        <TextView
+            android:id="@+id/btnSearchPrev"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="◀"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Previous match"
+            android:visibility="gone"
+            android:layout_marginStart="2dp" />
+
+        <!-- Next match -->
+        <TextView
+            android:id="@+id/btnSearchNext"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="▶"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Next match"
+            android:visibility="gone"
+            android:layout_marginStart="2dp" />
+
+        <!-- Search info -->
+        <TextView
+            android:id="@+id/btnSearchInfo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="ⓘ"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Match info"
+            android:visibility="gone"
+            android:layout_marginStart="2dp" />
+
+        <!-- Clear search -->
+        <TextView
+            android:id="@+id/btnSearchClose"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="✕"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Clear search"
+            android:layout_marginStart="2dp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.pdfviewer.sdk.gestures.ZoomableLayout
+            android:id="@+id/zoomableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pdfRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:background="#F5F5F5" />
+
+        </com.pdfviewer.sdk.gestures.ZoomableLayout>
+
+        <ProgressBar
+            android:id="@+id/pdfLoadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</LinearLayout>

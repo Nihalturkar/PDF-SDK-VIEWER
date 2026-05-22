@@ -1,0 +1,14 @@
+R_DEF: Internal format may change without notice
+local
+id bottomBar
+id btnOpen
+id btnRotate
+id btnZoomIn
+id btnZoomOut
+id pageIndicator
+id pdfView
+id zoomIndicator
+layout activity_main
+mipmap ic_launcher
+string app_name
+style Theme.PdfSample

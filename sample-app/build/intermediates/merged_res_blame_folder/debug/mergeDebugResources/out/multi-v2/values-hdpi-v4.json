@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.pdfviewer.sample.sample-app-mergeDebugResources-3:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\91750\\.gradle\\caches\\8.11\\transforms\\d48aa762d6eaae1f3e20a1782169b7b7\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

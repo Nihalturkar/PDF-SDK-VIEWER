@@ -56,7 +56,8 @@ class PdfDocument(
     fun renderPage(pageIndex: Int, width: Int, height: Int): Bitmap {
         val page = getPage(pageIndex) ?: throw IllegalStateException("Cannot open page $pageIndex")
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        page.renderPageBitmap(bitmap, 0, 0, width, height)
+        bitmap.eraseColor(android.graphics.Color.WHITE)
+        page.renderPageBitmap(bitmap, 0, 0, width, height, renderAnnot = true)
         return bitmap
     }
 
@@ -82,8 +83,9 @@ class PdfDocument(
     ): Bitmap {
         val page = getPage(pageIndex) ?: throw IllegalStateException("Cannot open page $pageIndex")
         val bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888)
+        bitmap.eraseColor(android.graphics.Color.WHITE)
         // startX/startY = negative offset positions the page so only the tile area is rendered
-        page.renderPageBitmap(bitmap, -offsetX, -offsetY, fullPageWidth, fullPageHeight)
+        page.renderPageBitmap(bitmap, -offsetX, -offsetY, fullPageWidth, fullPageHeight, renderAnnot = true)
         return bitmap
     }
 

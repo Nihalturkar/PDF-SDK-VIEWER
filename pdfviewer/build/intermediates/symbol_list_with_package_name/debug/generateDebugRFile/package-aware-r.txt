@@ -1,0 +1,28 @@
+com.pdfviewer.sdk
+attr pdfMaxZoom
+attr pdfMinZoom
+attr pdfPageSpacing
+id btnClose
+id btnCopyAll
+id btnSearchClose
+id btnSearchInfo
+id btnSearchMode
+id btnSearchNext
+id btnSearchPrev
+id dialogText
+id dialogTitle
+id highlightView
+id pageImage
+id pageLoading
+id pdfLoadingIndicator
+id pdfRecyclerView
+id searchBar
+id searchCount
+id searchInput
+id textSelectionView
+id tileImage
+id zoomableLayout
+layout dialog_page_text
+layout item_pdf_page
+layout view_pdf
+styleable PDFView pdfMaxZoom pdfMinZoom pdfPageSpacing

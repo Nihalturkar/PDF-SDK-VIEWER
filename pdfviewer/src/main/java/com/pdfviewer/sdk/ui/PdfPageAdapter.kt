@@ -66,7 +66,7 @@ internal class PdfPageAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val pageImage: ImageView = itemView.findViewById(R.id.pageImage)
+        private val pageImage: ImageView = itemView.findViewById(R.id.pageImage) as ImageView
         private val tileImage: ImageView = itemView.findViewById(R.id.tileImage)
         private val pageLoading: ProgressBar = itemView.findViewById(R.id.pageLoading)
         private val highlightView: HighlightView = itemView.findViewById(R.id.highlightView)

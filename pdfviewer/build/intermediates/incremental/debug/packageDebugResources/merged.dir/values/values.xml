@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PDFView">
+        <attr format="dimension" name="pdfPageSpacing"/>
+        <attr format="float" name="pdfMaxZoom"/>
+        <attr format="float" name="pdfMinZoom"/>
+    </declare-styleable>
+</resources>

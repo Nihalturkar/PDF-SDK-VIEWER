@@ -211,4 +211,12 @@ class ZoomableLayout @JvmOverloads constructor(
         isDoubleTapZoomed = false
         animateZoomTo(1.0f, width / 2f, height / 2f)
     }
+
+    fun resetZoomInstant() {
+        isDoubleTapZoomed = false
+        zoomMatrix.reset()
+        syncFromMatrix()
+        applyTransform()
+        onScaleSettled?.invoke(1f)
+    }
 }

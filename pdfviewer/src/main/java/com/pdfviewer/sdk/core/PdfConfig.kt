@@ -14,7 +14,7 @@ data class PdfConfig(
     val maxZoom: Float = 30.0f,
     val minZoom: Float = 1.0f,
     val doubleTapZoom: Float = 2.5f,
-    val cacheSizeMb: Int = 128,
+    val cacheSizeMb: Int = 192,
     val pageSpacingDp: Int = 8,
     val renderQuality: Float = 3.0f
 ) {
